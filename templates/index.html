@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Skill Assistant</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <h1>AI Skill Assistant</h1>
+      <div class="controls">
+        <button id="clearBtn" title="Clear conversation">Clear</button>
+        <button id="themeToggle" title="Toggle dark/light">🌗</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="chat" class="chat">
+        {% for m in messages %}
+          {% if m.role == 'user' %}
+            <div class="bubble user">{{ m.text }}</div>
+          {% elif m.role == 'assistant' %}
+            <div class="bubble assistant">{{ m.text }}</div>
+          {% endif %}
+        {% endfor %}
+        <div id="bottom-anchor"></div>
+      </section>
+
+      <form id="promptForm" class="composer" autocomplete="off">
+        <div class="row">
+          <label>Creative type</label>
+          <select name="category" id="category">
+            <option value="story">Viết truyện / Story</option>
+            <option value="music">Sáng tác nhạc / Music</option>
+            <option value="art">Nghệ thuật / Art</option>
+          </select>
+        </div>
+
+        <div class="row two">
+          <div>
+            <label>Style</label>
+            <select name="style" id="style">
+              <option value="normal">Normal</option>
+              <option value="funny">Funny</option>
+              <option value="dark">Dark</option>
+              <option value="poetic">Poetic</option>
+              <option value="epic">Epic</option>
+            </select>
+          </div>
+          <div>
+            <label>Language</label>
+            <select name="language" id="language">
+              <option value="vi">Tiếng Việt</option>
+              <option value="en">English</option>
+              <option value="ja">日本語</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <label>Prompt</label>
+          <textarea id="prompt" name="prompt" placeholder="Nhập ý tưởng của bạn..." required></textarea>
+        </div>
+
+        <div class="row actions">
+          <button type="submit" id="sendBtn">✨ Generate</button>
+        </div>
+      </form>
+    </main>
+
+    <div id="loadingOverlay" class="loading-overlay hidden">
+      <div class="spinner"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </div>
+</body>
+</html>
