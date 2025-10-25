@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DPKS AI</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+
+  <body>
+    <div class="page">
+
+      <!-- 🏠 HOME SCREEN -->
+      <section id="home" class="home-screen">
+        <div class="home-content">
+          <h1>Welcome to DPKS AI</h1>
+          <p>Your creative AI assistant for stories, music, and art.</p>
+          <button id="startChatBtn" class="primary-btn">Start Chat 💬</button>
+        </div>
+      </section>
+
+      <!-- 💬 CHAT SCREEN -->
+      <section id="chat-screen" class="hidden">
+        <header class="topbar">
+          <h1>DPKS AI</h1>
+          <div class="controls">
+            <button id="homeBtn" title="Go Home">🏠</button>
+            <button id="patchBtn" title="Show Patch Notes">📝 Patch Notes</button>
+            <button id="clearBtn" title="Clear Conversation">🧹 Clear</button>
+            <button id="themeToggle" title="Toggle Dark Mode">🌗</button>
+          </div>
+        </header>
+
+        <main class="container">
+          <section id="chat" class="chat">
+            {% for m in messages %}
+              {% if m.role == 'user' %}
+                <div class="bubble user">{{ m.text }}</div>
+              {% elif m.role == 'assistant' %}
+                <div class="bubble assistant">{{ m.text }}</div>
+              {% endif %}
+            {% endfor %}
+            <div id="bottom-anchor"></div>
+          </section>
+
+          <form id="promptForm" class="composer" autocomplete="off">
+            <div class="row">
+              <label>Creative type</label>
+              <select id="category">
+                <option value="story">Viết truyện / Story</option>
+                <option value="music">Sáng tác nhạc / Music</option>
+              </select>
+            </div>
+
+            <div class="row two">
+              <div>
+                <label>Style</label>
+                <select id="style">
+                  <option value="normal">Normal</option>
+                  <option value="funny">Funny</option>
+                  <option value="dark">Dark</option>
+                  <option value="poetic">Poetic</option>
+                  <option value="epic">Epic</option>
+                </select>
+              </div>
+              <div>
+                <label>Language</label>
+                <select id="language">
+                  <option value="vi">Tiếng Việt</option>
+                  <option value="en">English</option>
+                  <option value="ja">日本語</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <label>Prompt</label>
+              <textarea id="prompt" placeholder="Nhập ý tưởng của bạn..." required></textarea>
+            </div>
+
+            <div class="row actions">
+              <button type="submit" id="sendBtn">✨ Generate</button>
+              <button type="button" id="stopBtn" disabled>⏹ Stop</button>
+            </div>
+          </form>
+        </main>
+      </section>
+    </div>
+
+    <!-- 📝 PATCH NOTES MODAL -->
+    <div id="patchModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-btn" id="closePatch">&times;</span>
+        <h2>📝 Patch Notes</h2>
+        <div class="patch-body">
+          <h3>v2.1 (October 2025)</h3>
+          <ul>
+            <li>🚀 Now using Gemini 2.5 Flash for faster generation.</li>
+            <li>💬 Improved typing animation & message flow.</li>
+            <li>🛑 Added Stop button to instantly cancel responses.</li>
+            <li>🌗 Enhanced dark/light mode toggle with memory.</li>
+            <li>🧹 Clear conversation button refreshes chat instantly.</li>
+            <li>📜 Added this patch notes modal!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
